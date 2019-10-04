@@ -1,16 +1,19 @@
-# flutter_weather
+# Flutter Weather App
 
-A new Flutter project.
+This repository contains a simple weather app built using Flutter.
 
-## Getting Started
+The Weather app allows you to view the current weather from a select list of cities.
 
-This project is a starting point for a Flutter application.
+## Setup Instructions
 
-A few resources to get you started if this is your first Flutter project:
+This repository was built and tested in Visual Studio Code. Before you can run the app:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+1. Follow the [flutter installation documentation](https://flutter.dev/docs/get-started/install) to setup all the software necessary to develop Flutter apps.
+2. Follow the [flutter editor setup documentation](https://flutter.dev/docs/get-started/editor?tab=vscode) to setup VS Code to develop Flutter apps.
+3. Setup an Android emulator OR connect a physical Android device that has been configured to run in USB Debug mode.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+*This repository was created and tested using VS Code. You can use other editors like Android Studio although those editors may require additional setup and/or minor changes.*
+
+## Run Instructions
+
+To run the Weather app on your emulator or physical device, run the **Flutter** VS Code launch configuration provided in this repository. The app will appear on your emulator or phsyical device after the build completes.
