@@ -3,3 +3,10 @@ class WeatherData {
   String temperature;
   String weatherDescription;
 }
+
+class Location {
+  String name;
+  String code;
+
+  Location(this.name, this.code);
+}

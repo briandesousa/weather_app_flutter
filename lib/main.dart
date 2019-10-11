@@ -57,15 +57,15 @@ class _HomeState extends State<Home> {
         height: 2,
         color: Colors.black87,
       ),
-      items: <String>[
-        'London, ON',
-        'Toronto, ON',
-        'New York, NY',
-        'London, Engalnd'
-      ].map<DropdownMenuItem<String>>((String value) {
+      items: <Location>[
+        new Location('London, ON', 'londonon'),
+        new Location('Toronto, ON', 'torontoon'),
+        new Location('New York, NY', 'newyorkny'),
+        new Location('London, England', 'londonen')
+      ].map<DropdownMenuItem<String>>((Location value) {
         return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
+          value: value.code,
+          child: Text(value.name),
         );
       }).toList(),
       onChanged: (String newValue) {
