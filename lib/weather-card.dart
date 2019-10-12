@@ -11,7 +11,7 @@ class WeatherCard extends StatelessWidget {
 
   Widget buildLocation(String location) {
     return Text(
-      location,
+      location != null ? location : '',
       style: TextStyle(
         fontSize: 18.0,
         fontWeight: FontWeight.bold,
@@ -23,7 +23,7 @@ class WeatherCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 15.0),
       child: Text(
-        temperature,
+        temperature != null ? temperature : '',
         style: TextStyle(fontSize: 30.0),
       ),
     );
@@ -31,7 +31,7 @@ class WeatherCard extends StatelessWidget {
 
   Widget buildWeatherDescription(String weatherDescription) {
     return Text(
-      weatherDescription,
+      weatherDescription != null ? weatherDescription : '',
       style: TextStyle(fontSize: 14.0),
     );
   }
