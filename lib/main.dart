@@ -46,7 +46,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final _formKey = GlobalKey<FormState>();
 
-  WeatherData _weatherData = WeatherData();
+  WeatherData _weatherData = WeatherData('londonon');
   String _apiError;
 
   Widget buildErrorMessage() {
@@ -92,40 +92,42 @@ class _HomeState extends State<Home> {
         );
       }).toList(),
       onChanged: (String newValue) {
-        setState(() {
-          if (this._weatherData.location != newValue) {
+        if (this._weatherData.location != newValue) {
+          setState(() {
             this._weatherData.location = newValue;
             fetchWeatherData(location: this._weatherData.location);
-          }
-        });
+          });
+        }
       },
     );
   }
 
   // Retrieve weather data from the Weather API
-  fetchWeatherData({String location = 'londonon'}) async {
+  fetchWeatherData({String location}) async {
     var url = WEATHER_API_URL + location;
     final response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
-      this._weatherData = WeatherData(
-        jsonResponse['weather']['location'],
-        jsonResponse['weather']['temperature'],
-        jsonResponse['weather']['weatherDescription'],
-      );
-      this._apiError = null;
+      setState(() {
+        this._weatherData = WeatherData(
+          jsonResponse['weather']['location'],
+          jsonResponse['weather']['temperature'],
+          jsonResponse['weather']['weatherDescription'],
+        );
+        this._apiError = null;
+      });
     } else {
-      this._apiError =
-          'Unable to retrieve weather data from API (HTTP ${response.statusCode})';
+      setState(() {
+        this._apiError =
+            'Unable to retrieve weather data from API (HTTP ${response.statusCode})';
+      });
     }
   }
 
   @override
   initState() {
     super.initState();
-    setState(() {
-      fetchWeatherData();
-    });
+    fetchWeatherData(location: this._weatherData.location);
   }
 
   @override
@@ -151,9 +153,7 @@ class _HomeState extends State<Home> {
               WeatherCard(
                 weatherData: _weatherData,
                 onTap: () {
-                  setState(() {
-                    fetchWeatherData(location: this._weatherData.location);
-                  });
+                  fetchWeatherData(location: this._weatherData.location);
                 },
               ),
             ],
