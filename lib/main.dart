@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         cardColor: Colors.lightGreen[200],
-        splashColor: Colors.green[700].withAlpha(100),
+        splashColor: Colors.green[700]?.withAlpha(100),
       ),
       home: Home(title: title),
     );
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 }
 
 class Home extends StatefulWidget {
-  Home({Key key, this.title}) : super(key: key);
+  Home({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -47,12 +47,12 @@ class _HomeState extends State<Home> {
   final _formKey = GlobalKey<FormState>();
 
   WeatherData _weatherData = WeatherData('londonon');
-  String _apiError;
+  String? _apiError;
 
   Widget buildErrorMessage() {
     if (this._apiError != null) {
       return Text(
-        this._apiError,
+        this._apiError as String,
         style: TextStyle(color: Colors.red),
       );
     }
@@ -91,10 +91,10 @@ class _HomeState extends State<Home> {
           child: Text(value.name),
         );
       }).toList(),
-      onChanged: (String newValue) {
+      onChanged: (String? newValue) {
         if (this._weatherData.location != newValue) {
           setState(() {
-            this._weatherData.location = newValue;
+            this._weatherData.location = newValue as String;
             fetchWeatherData(location: this._weatherData.location);
           });
         }
@@ -103,8 +103,8 @@ class _HomeState extends State<Home> {
   }
 
   // Retrieve weather data from the Weather API
-  fetchWeatherData({String location}) async {
-    var url = WEATHER_API_URL + location;
+  fetchWeatherData({required String location}) async {
+    var url = Uri.http(WEATHER_API_URL + location);
     final response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
@@ -114,7 +114,7 @@ class _HomeState extends State<Home> {
           jsonResponse['weather']['temperature'],
           jsonResponse['weather']['weatherDescription'],
         );
-        this._apiError = null;
+        this._apiError = "";
       });
     } else {
       setState(() {

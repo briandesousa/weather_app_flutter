@@ -4,9 +4,9 @@ import 'package:flutter_weather/weather-data.dart';
 
 class WeatherCard extends StatelessWidget {
   final WeatherData weatherData;
-  final Function onTap;
+  final Function() onTap;
 
-  WeatherCard({Key key, @required this.weatherData, @required this.onTap})
+  WeatherCard({Key? key, required this.weatherData, required this.onTap})
       : super(key: key);
 
   Widget buildLocation(String location) {
